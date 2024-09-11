@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Exclusive</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #899B9F;
+            text-emphasis-color: white;
+        
+        }
+
+        a{
+            color: white;
+        }
+        .form-group.label {
+            color:white;
+        }
+
+        .form-control mr-sm-2 {
+            background-color: #ebebeb;
+        }
+        .navbar {
+            background-color: #374342;
+            color: white;
+            padding: 10px;
+        }
+
+        .navbar h1 {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+            margin-left: 50px;
+        }
+
+        .navbar a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .promo-bar {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-image {
+            width: 80%;
+            background-color: #e1f4f300;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-image img {
+            max-width: 100%;
+            border-radius: 15px;
+        }
+
+        .login-form {
+            width: 40%;
+            padding: 20px;
+            background-color: #374342;
+        }
+
+        .card {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #374342;
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, .125);
+            border-radius: .25rem
+        }
+
+        .card-header {
+            background-color: #374342;
+            border-bottom: none;
+            text-align: center
+        }
+
+        .card-header h3 {
+            font-weight: bold;
+            color: white;
+        }
+
+        .card-header p {
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: #ff4b5c;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff2a3b;
+        }
+
+        .footer {
+            background-color: #374342;
+            color: white;
+            padding: 20px 0;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-column {
+            margin-bottom: 20px;
+        }
+
+        .footer-column h5 {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            background-color: #ffffff;
+        }
+        
+        .email {
+            color: white;
+        }
+
+        .contraseña {
+            color: white;
+        }
+
+        .olvi{
+            color: white;
+        }
+
+        .row {
+            background-color: #374342;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <h1>AndesArtBol</h2>
+            <a href="{{ url_for('registro') }}">REGISTRO</a>
+            <a href="{{ url_for('login') }}">INCIAR SECION</a>
+            <a href="#">ACERCA DE NOSOTROS</a>
+            <a
+                href="https://canyon-swan-d80.notion.site/PROYECTO-SISTEMA-DE-COMERCIO-ELECTR-NICO-c8ebc799c8bb4e09bf7eea94968dd434">NOTION</a>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="¿Qué estás buscando?">
+            </form>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="login-container container">
+        <div class="login-image">
+            <img src="/static/CSS/imagenes/Telas-1-.jpg" alt="Producto">
+        </div>
+
+        <div class="login-form">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Inicia Sesión</h3>
+                    <p>Ingresa tus credenciales</p>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="/login">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="correo">Correo</label>
+                            <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contraseña">Contraseña</label>
+                            <input type="password" class="form-control" id="contraseña" name="contraseña" placeholder="Contraseña" required>
+                        </div>
+                        <div class="form-group"></div>
+                            <label for="telefono">Telefono</label>
+                            <input type="telefono" class="form-control" id="telefono" name="telefono" placeholder="Telefono" required>
+                        </div>
+                        <div class="form-group"></div>
+                            <label for="rol">Rol</label>
+                            <input type="rol" class="form-control" id="rol" name="rol" placeholder="Rol" required>
+                        </div>
+                        <div class="form-group"></div>
+                            <label for="comunidad">Comunidad</label>
+                            <input type="comunidad" class="form-control" id="comunidad" name="comunidad" placeholder="Comunidad" required>
+                        </div>
+
+                        <button type="submit" class="form-control">Registrarse</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a class="Olvi" href="{{ url_for('recuperar') }}">¿Olvidaste tu contraseña?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="footer text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 footer-column">
+                    <h5>AndesArtBol</h5>
+                    <p>Obtén un 10% de descuento en tu primera compra de productos artesanales bolivianos</p>
+                </div>
+                <div class="col-md-3 footer-column">
+                    <h5>Soporte</h5>
+                    <p>Av. Mariscal Santa Cruz, La Paz, Bolivia</p>
+                    <p>Email: soporte@andesartbol.com</p>
+                    <p>Tel: +591-2-244-0000</p>
+                </div>
+                <div class="col-md-3 footer-column">
+                    <h5>Cuenta</h5>
+                    <a href="{{ url_for('login') }}">Login</a><br>
+                    <a href="{{ url_for('registro') }}">Register</a><br>
+                    <a href="#">Carrito</a><br>
+                </div>
+                <div class="col-md-3 footer-column">
+                    <h5>Enlaces rápidos</h5>
+                    <a href="{{ url_for('politicas') }}">Política de Privacidad</a><br>
+                    <a href="#">Términos de uso</a><br>
+                    <a href="#">Preguntas Frecuentes</a><br>
+                    <a href="#">Contacto</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies (Popper.js and jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

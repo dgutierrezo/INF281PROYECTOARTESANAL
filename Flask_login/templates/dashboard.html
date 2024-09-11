@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Colores de la paleta */
+        :root {
+            --color-principal: #374342; /* Verde oscuro */
+            --color-secundario: #200001; /* Rojo oscuro */
+            --color-acento: #92AAA6; /* Gris azuloso */
+            --color-fondo: #FDE4D1; /* Beige claro */
+            --color-texto: #FFFFFF; /* Blanco */
+        }
+
+        body {
+            background-color: var(--color-fondo);
+            color: var(--color-principal);
+        }
+
+        .card {
+            background-color: var(--color-principal);
+            color: var(--color-texto);
+        }
+
+        .card-header {
+            background-color: var(--color-secundario);
+        }
+
+        .btn-outline-primary {
+            border-color: var(--color-principal);
+            color: var(--color-principal);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--color-principal);
+            color: var(--color-texto);
+        }
+
+        .btn-outline-secondary {
+            border-color: var(--color-secundario);
+            color: var(--color-secundario);
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: var(--color-secundario);
+            color: var(--color-texto);
+        }
+
+        .btn-outline-success {
+            border-color: var(--color-acento);
+            color: var(--color-acento);
+        }
+
+        .btn-outline-success:hover {
+            background-color: var(--color-acento);
+            color: var(--color-texto);
+        }
+
+        .btn-danger {
+            background-color: var(--color-secundario);
+            border-color: var(--color-secundario);
+        }
+
+        .btn-danger:hover {
+            background-color: var(--color-principal);
+            border-color: var(--color-secundario);
+        }
+
+        .list-group-item {
+            background-color: var(--color-texto);
+            color: var(--color-principal);
+        }
+
+        .list-group-item:hover {
+            background-color: var(--color-fondo);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-lg">
+            <div class="card-header text-center">
+                <h1>Bienvenido, {{ nombre }}</h1>
+            </div>
+            <div class="card-body text-center">
+                <p>Este es tu dashboard. Aquí puedes acceder a tus opciones y funciones personalizadas.</p>
+
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item">
+                        <a href="/perfil" class="btn btn-outline-primary btn-block">Ver Perfil</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/productos" class="btn btn-outline-secondary btn-block">Ver Productos</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/pedidos" class="btn btn-outline-success btn-block">Ver Pedidos</a>
+                    </li>
+                </ul>
+
+                <a href="{{ url_for('logout') }}" class="btn btn-danger btn-block">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (Popper.js and jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
