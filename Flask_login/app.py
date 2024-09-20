@@ -17,8 +17,8 @@ app.secret_key = os.getenv('SECRET_KEY', 'default_secret_key')  # Establecer una
 # Configuración de Flask-Mail utilizando variables de entorno
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = 'dgutierrezo@fcpn.edu.bo'  # Usa variables de entorno
-app.config['MAIL_PASSWORD'] = 'mtaq gtkd qeqs zbxd'  # Usa variables de entorno
+app.config['MAIL_USERNAME'] = 
+app.config['MAIL_PASSWORD'] = 
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 mail = Mail(app)
