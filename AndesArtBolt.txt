@@ -1,0 +1,180 @@
+DATABASE AndesArtBol;
+USE AndesArtBol;
+
+-- Tabla de Roles
+CREATE TABLE Roles (
+    rol_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion TEXT
+) ENGINE=InnoDB;
+
+-- Tabla de Comunidades
+CREATE TABLE Comunidades (
+    comunidad_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    ubicacion VARCHAR(255)
+) ENGINE=InnoDB;
+
+-- Tabla de Usuarios
+CREATE TABLE Usuarios (
+    usuario_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    correo VARCHAR(255) UNIQUE NOT NULL,
+    contraseña VARCHAR(255) NOT NULL,
+    telefono VARCHAR(20),
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    rol_id INT,
+    comunidad_id INT,  -- Relación con Comunidades
+    FOREIGN KEY (rol_id) REFERENCES Roles(rol_id),
+    FOREIGN KEY (comunidad_id) REFERENCES Comunidades(comunidad_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Direcciones
+CREATE TABLE Direcciones (
+    direccion_id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    direccion_completa VARCHAR(255) NOT NULL,
+    ciudad VARCHAR(100),
+    pais VARCHAR(100),
+    codigo_postal VARCHAR(20),
+    FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Vendedores
+CREATE TABLE Vendedores (
+    vendedor_id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    nombre_tienda VARCHAR(255),
+    descripcion TEXT,
+    contacto VARCHAR(255),
+    comunidad_id INT,
+    FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id),
+    FOREIGN KEY (comunidad_id) REFERENCES Comunidades(comunidad_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Categorías
+CREATE TABLE Categorias (
+    categoria_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL
+) ENGINE=InnoDB;
+
+-- Tabla de Productos
+CREATE TABLE Productos (
+    producto_id INT AUTO_INCREMENT PRIMARY KEY,
+    vendedor_id INT,
+    categoria_id INT,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10, 2) NOT NULL,
+    imagen_url VARCHAR(255),
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    comunidad_id INT,  -- Relación con Comunidades
+    FOREIGN KEY (vendedor_id) REFERENCES Vendedores(vendedor_id),
+    FOREIGN KEY (categoria_id) REFERENCES Categorias(categoria_id),
+    FOREIGN KEY (comunidad_id) REFERENCES Comunidades(comunidad_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Inventarios
+CREATE TABLE Inventarios (
+    inventario_id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT,
+    cantidad INT NOT NULL,
+    umbral_minimo INT DEFAULT 5,
+    FOREIGN KEY (producto_id) REFERENCES Productos(producto_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Pedidos
+CREATE TABLE Pedidos (
+    pedido_id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    direccion_id INT,
+    total DECIMAL(10, 2) NOT NULL,
+    estado VARCHAR(50) DEFAULT 'Pendiente',
+    fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id),
+    FOREIGN KEY (direccion_id) REFERENCES Direcciones(direccion_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Detalles del Pedido
+CREATE TABLE DetallesPedido (
+    detalle_id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT,
+    producto_id INT,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (pedido_id) REFERENCES Pedidos(pedido_id),
+    FOREIGN KEY (producto_id) REFERENCES Productos(producto_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Carritos
+CREATE TABLE Carritos (
+    carrito_id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Detalles del Carrito
+CREATE TABLE DetallesCarrito (
+    detalle_id INT AUTO_INCREMENT PRIMARY KEY,
+    carrito_id INT,
+    producto_id INT,
+    cantidad INT NOT NULL,
+    FOREIGN KEY (carrito_id) REFERENCES Carritos(carrito_id),
+    FOREIGN KEY (producto_id) REFERENCES Productos(producto_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Reseñas
+CREATE TABLE Reseñas (
+    reseña_id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT,
+    usuario_id INT,
+    calificacion INT CHECK (calificacion >= 1 AND calificacion <= 5),
+    comentario TEXT,
+    fecha_reseña TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (producto_id) REFERENCES Productos(producto_id),
+    FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Notificaciones
+CREATE TABLE Notificaciones (
+    notificacion_id INT AUTO_INCREMENT PRIMARY KEY,
+    vendedor_id INT,
+    mensaje TEXT,
+    leido BOOLEAN DEFAULT FALSE,
+    fecha_notificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (vendedor_id) REFERENCES Vendedores(vendedor_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Pagos
+CREATE TABLE Pagos (
+    pago_id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT,
+    metodo_pago VARCHAR(50),
+    monto DECIMAL(10, 2) NOT NULL,
+    fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (pedido_id) REFERENCES Pedidos(pedido_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Mensajes
+CREATE TABLE Mensajes (
+    mensaje_id INT AUTO_INCREMENT PRIMARY KEY,
+    remitente_id INT,
+    destinatario_id INT,
+    contenido TEXT NOT NULL,
+    fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (remitente_id) REFERENCES Usuarios(usuario_id),
+    FOREIGN KEY (destinatario_id) REFERENCES Usuarios(usuario_id)
+) ENGINE=InnoDB;
+
+-- Tabla de Deliverys
+CREATE TABLE Deliverys (
+    delivery_id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT,
+    direccion_entrega_id INT,
+    fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_entrega TIMESTAMP,
+    estado VARCHAR(50) DEFAULT 'En camino',
+    FOREIGN KEY (pedido_id) REFERENCES Pedidos(pedido_id),
+    FOREIGN KEY (direccion_entrega_id) REFERENCES Direcciones(direccion_id)
+) ENGINE=InnoDB;
